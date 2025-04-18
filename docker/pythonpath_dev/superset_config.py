@@ -27,6 +27,11 @@ import sys
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
 
+LANGUAGES = {
+    'en': {'flag': 'us', 'name': 'English'},
+    'zh': {'flag': 'cn', 'name': 'Chinese'},
+}
+
 logger = logging.getLogger()
 
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
