@@ -1,0 +1,32 @@
+{
+    "name": "@superset-ui/plugin-chart-vchart",
+    "version": "0.1.0",
+    "description": "Superset Chart Plugin - VChart",
+    "sideEffects": false,
+    "main": "lib/index.js",
+    "module": "esm/index.js",
+    "files": [
+      "esm",
+      "lib"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/apache/superset.git"
+    },
+    "keywords": [
+      "superset",
+      "visualization",
+      "vchart"
+    ],
+    "dependencies": {
+      "@visactor/vchart": "^2.0.0",
+      "@superset-ui/core": "^0.18.0"
+    },
+    "peerDependencies": {
+      "react": "^16.13.1"
+    },
+    "publishConfig": {
+      "access": "public"
+    }
+  }
+  

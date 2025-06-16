@@ -17,21 +17,21 @@
  * under the License.
  */
 import { RefObject, Ref } from 'react';
-
 import {
-    ChartDataResponseResult,
-    ChartProps,
-    ContextMenuFilters,
-    FilterState,
-    HandlerFunction,
-    LegendState,
-    PlainObject,
-    QueryFormColumn,
-    SetDataMaskHook,
-    ChartPlugin,
-    SqlaFormData,
-    ChartMetadata,
-  } from '@superset-ui/core';
+  ChartDataResponseResult,
+  ChartProps,
+  ContextMenuFilters,
+  FilterState,
+  HandlerFunction,
+  LegendState,
+  PlainObject,
+  QueryFormColumn,
+  SetDataMaskHook,
+  ChartPlugin,
+  SqlaFormData,
+  ChartMetadata,
+} from '@superset-ui/core';
+
 import type { EChartsCoreOption, EChartsType } from 'echarts/core';
 
 export type VchartStylesProps = {
@@ -39,13 +39,18 @@ export type VchartStylesProps = {
   width: number;
 };
 
-export interface VchartProps {
-    height: number;
-    width: number;
-    vchartOptions: EChartsCoreOption;
-    eventHandlers?: EventHandlers;
-    zrEventHandlers?: EventHandlers;
-    selectedValues?: Record<number, string>;
-    forceClear?: boolean;
-    refs: Refs;
+export class VchartChartPlugin<
+  T extends SqlaFormData = SqlaFormData,
+  P extends ChartProps = ChartProps,
+> extends ChartPlugin<T, P> {
+  constructor(props: any) {
+    const { metadata, ...restProps } = props;
+    super({
+      ...restProps,
+      metadata: new ChartMetadata({
+        parseMethod: 'json-bigint',
+        ...metadata,
+      }),
+    });
+  }
 }

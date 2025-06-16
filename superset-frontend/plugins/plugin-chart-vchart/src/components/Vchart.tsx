@@ -57,112 +57,127 @@ import {
   //
   Region
 } from '@visactor/react-vchart';
-// 引入坐标轴、提示信息、十字准星组件
 
-
-import { VchartHandler, VchartProps, VchartStylesProps } from '../types';
-import { DEFAULT_LOCALE } from '../constants'; // 假设有这个常量文件
-
-// TODO: 从 @superset-ui/core 或其他地方移动 ExplorePageState 类型定义
-interface ExplorePageState {
-  common: {
-    locale: string;
+interface VchartProps {
+  width: number;
+  height: number;
+  spec: any; // VChart 的配置对象
+  eventHandlers?: Record<string, Function>;
+  selectedValues?: Record<string, any>;
+  refs?: {
+    divRef?: React.RefObject<HTMLDivElement>;
   };
 }
 
+// 定义组件暴露给父组件的方法接口
+interface VchartHandler {
+  getVchartInstance: () => VChart | undefined;
+}
+
+// 定义样式组件的 Props 接口
+interface VchartStylesProps {
+  width: number;
+  height: number;
+}
+
+// 使用 styled-components 创建样式化组件
 const Styles = styled.div<VchartStylesProps>`
   height: ${({ height }) => height}px;
-  width: ${({ width }) => width}px; 
+  width: ${({ width }) => width}px;
 `;
-
-// VChart 不需要像 ECharts 那样显式 use 组件和渲染器
-// VChart 的 locale 处理方式也不同，通常在初始化时传入
 
 function VchartComponent(
   {
     width,
     height,
-    vchartSpec, // VChart 使用 spec 定义图表
-    eventHandlers, // VChart 的事件处理
-    // zrEventHandlers, // VChart 没有 zrEventHandlers
+    spec,
+    eventHandlers,
     selectedValues = {},
     refs,
   }: VchartProps,
   ref: Ref<VchartHandler>,
 ) {
+  // 创建 DOM 容器的 ref
   const divRef = useRef<HTMLDivElement>(null);
   if (refs) {
-    // eslint-disable-next-line no-param-reassign
     refs.divRef = divRef;
   }
-  const [didMount, setDidMount] = useState(false);
-  const chartRef = useRef<IVChart>(); // VChart 实例类型
 
-  // VChart 的选中值处理逻辑可能不同，需要根据 VChart API 调整
+  // 状态管理
+  const [didMount, setDidMount] = useState(false);
+  const chartRef = useRef<VChart>();
+
+  // 处理选中状态
   const currentSelection = useMemo(
     () => Object.keys(selectedValues) || [],
     [selectedValues],
   );
   const previousSelection = useRef<string[]>([]);
 
+  // 暴露图表实例给父组件
   useImperativeHandle(ref, () => ({
     getVchartInstance: () => chartRef.current,
   }));
 
+  // 获取语言环境
   const locale = useSelector(
-    (state: ExplorePageState) => state?.common?.locale ?? DEFAULT_LOCALE,
+    (state: any) => state?.common?.locale ?? 'zh-CN',
   );
 
+  // 处理尺寸变化
   const handleSizeChange = useCallback(
     ({ width, height }: { width: number; height: number }) => {
       if (chartRef.current) {
-        // VChart 的 resize 方法
         chartRef.current.resize(width, height);
       }
     },
     [],
   );
 
+  // 初始化图表
   useEffect(() => {
-    // VChart 的国际化通常在初始化 spec 时配置，或者通过 API 设置
-    // VChart.setLocale(locale); // 假设有这样的 API
     if (!divRef.current) return;
     if (!chartRef.current) {
       // 创建 VChart 实例
-      // 注意：VChart 的构造函数参数与 ECharts 不同
-      // 通常是 (spec, options)，其中 options 可以包含 dom, width, height 等
-      chartRef.current = new VChart(vchartSpec, { dom: divRef.current, width, height, locale });
-      chartRef.current.renderSync(); // 或者 renderAsync
+      chartRef.current = new VChart({
+        ...spec,
+        dom: divRef.current,
+        width,
+        height,
+        locale,
+      });
+      chartRef.current.renderSync();
+      setDidMount(true);
     }
-    setDidMount(true);
-  }, [locale, vchartSpec, width, height]); // vchartSpec 变化时可能需要重新渲染或更新
+  }, [spec, width, height, locale]);
 
+  // 处理事件和配置更新
   useEffect(() => {
     if (didMount && chartRef.current) {
-      // VChart 事件处理
+      // 更新事件处理器
       Object.entries(eventHandlers || {}).forEach(([name, handler]) => {
-        // VChart 的事件绑定/解绑 API 可能不同
-        // chartRef.current.off(name, handler); // 先解绑旧的
-        // chartRef.current.on(name, handler); // 绑定新的
+        chartRef.current?.off(name);
+        chartRef.current?.on(name, handler);
       });
 
-      // 如果 vchartSpec 更新，可能需要调用 chartRef.current.updateSpec(vchartSpec)
-      // 或者重新创建实例，取决于 VChart 的 API 和性能考虑
-
+      // 更新图表配置
+      chartRef.current.updateSpec(spec);
       handleSizeChange({ width, height });
     }
-  }, [didMount, vchartSpec, eventHandlers, width, height, handleSizeChange]);
+  }, [didMount, spec, eventHandlers, width, height]);
 
-  useEffect(() => () => chartRef.current?.release(), []); // VChart 销毁实例的方法是 release
+  // 清理资源
+  useEffect(() => () => chartRef.current?.release(), []);
 
-  // VChart 的高亮逻辑需要根据其 API 实现
+  // 处理选中状态变化
   useEffect(() => {
     if (!chartRef.current) return;
-    // 示例：VChart 可能通过 updateState 或类似 API 实现高亮
-    // chartRef.current.updateState(...);
+    // 根据 VChart 的 API 实现高亮逻辑
+    // 这里需要根据具体的 VChart API 来实现
     previousSelection.current = currentSelection;
-  }, [currentSelection, chartRef.current]);
+  }, [currentSelection]);
 
+  // 处理尺寸变化
   useLayoutEffect(() => {
     handleSizeChange({ width, height });
   }, [width, height, handleSizeChange]);
