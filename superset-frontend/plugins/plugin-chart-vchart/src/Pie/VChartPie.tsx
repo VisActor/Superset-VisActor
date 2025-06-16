@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { createVChart } from '@visactor/vchart';
+import VChart from '@visactor/vchart';
 import { PieChartTransformedProps } from './types';
 
 export default function VChartPie(props: PieChartTransformedProps) {
@@ -12,17 +12,17 @@ export default function VChartPie(props: PieChartTransformedProps) {
       containerRef.current.innerHTML = '';
       
       // 创建 VChart 实例
-      const chartInstance = createVChart({
-        ...vchartSpec,
-        container: containerRef.current
+      const chartInstance = new VChart(vchartSpec,{
+
+        dom: containerRef.current
       });
       
       // 渲染图表
-      chartInstance.render();
+      chartInstance.renderSync();
       
       // 组件卸载时销毁图表
       return () => {
-        chartInstance.dispose();
+        chartInstance.release();
       };
     }
   }, [width, height, vchartSpec]);

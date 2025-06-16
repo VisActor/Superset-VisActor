@@ -19,11 +19,11 @@
       "vchart"
     ],
     "dependencies": {
-      "@visactor/vchart": "^2.0.0",
-      "@superset-ui/core": "^0.18.0"
+      "@visactor/vchart": "^2.0.0"
     },
     "peerDependencies": {
-      "react": "^16.13.1"
+      "react": "^16.13.1",
+      "@superset-ui/core": "*"
     },
     "publishConfig": {
       "access": "public"

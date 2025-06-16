@@ -1,7 +1,5 @@
-import { buildQueryContext } from '@superset-ui/core';
-import { PieChartFormData } from './types';
-
-export default function buildQuery(formData: PieChartFormData) {
+import { buildQueryContext, QueryFormData } from '@superset-ui/core';
+export default function buildQuery(formData: QueryFormData) {
   return buildQueryContext(formData, baseQueryObject => {
     return [
       {
