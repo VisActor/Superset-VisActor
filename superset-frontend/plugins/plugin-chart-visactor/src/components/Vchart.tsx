@@ -30,8 +30,36 @@ import React, {
 
 import { useSelector } from 'react-redux';
 import { styled } from '@superset-ui/core';
-import VChart, { IVChart, IVChartConstructor } from '@visactor/vchart'; // 导入 VChart
-// 假设 VChart 的 Props 和 Handler 类型定义在 ../types 文件中
+import { VChart } from '@visactor/react-vchart';
+import { PieChart } from '@visactor/react-vchart';
+import {
+  // 坐标轴组件
+  Axis,
+  // 图例组件
+  Legend,
+  // Brush组件
+  Brush,
+  // Crosshair组件
+  Crosshair,
+  // DataZoom 组件
+  DataZoom,
+  // Indicator 组件
+  Indicator,
+  MarkArea,
+  MarkLine,
+  MarkPoint,
+  Player,
+  ScrollBar,
+  Title,
+  Tooltip,
+  // 自定义图元系列
+  Mark,
+  //
+  Region
+} from '@visactor/react-vchart';
+// 引入坐标轴、提示信息、十字准星组件
+
+
 import { VchartHandler, VchartProps, VchartStylesProps } from '../types';
 import { DEFAULT_LOCALE } from '../constants'; // 假设有这个常量文件
 
@@ -43,9 +71,8 @@ interface ExplorePageState {
 }
 
 const Styles = styled.div<VchartStylesProps>`
-  height: ${({ height }) => height}px; // 确保单位正确
-  width: ${({ width }) => width}px; // 确保单位正确
-  position: relative; // VChart 可能需要相对定位的容器
+  height: ${({ height }) => height}px;
+  width: ${({ width }) => width}px; 
 `;
 
 // VChart 不需要像 ECharts 那样显式 use 组件和渲染器
