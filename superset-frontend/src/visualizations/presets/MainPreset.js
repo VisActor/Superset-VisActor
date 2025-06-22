@@ -81,6 +81,7 @@ import { HandlebarsChartPlugin } from '@superset-ui/plugin-chart-handlebars';
 import { FilterPlugins } from 'src/constants';
 import TimeTableChartPlugin from '../TimeTable';
 import { VChartPieChartPlugin } from '@superset-ui/plugin-chart-vchart';
+import { VTablePivotTablePlugin } from '@superset-ui/plugin-chart-vtable';
 
 export default class MainPreset extends Preset {
   constructor() {
@@ -186,6 +187,7 @@ export default class MainPreset extends Preset {
           ],
         }).configure({ key: VizType.Cartodiagram }),
         new VChartPieChartPlugin().configure({ key: VizType.VPie }),
+        new VTablePivotTablePlugin().configure({ key: VizType.VPivotTable }),
         ...experimentalPlugins,
       ],
     });

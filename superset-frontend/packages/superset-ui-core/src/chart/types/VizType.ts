@@ -63,4 +63,5 @@ export enum VizType {
   WordCloud = 'word_cloud',
   WorldMap = 'world_map',
   VPie = 'visactor_pie',
+  VPivotTable = 'visactor_pivot_table',
 }
