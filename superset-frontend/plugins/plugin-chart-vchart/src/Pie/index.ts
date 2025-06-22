@@ -7,8 +7,9 @@ import example1 from './images/Pie1.jpg';
 import example2 from './images/Pie2.jpg';
 import example3 from './images/Pie3.jpg';
 import example4 from './images/Pie4.jpg';
+import { VchartChartPlugin } from '../types';
 
-export default class VChartPieChartPlugin extends ChartPlugin {
+export default class VChartPieChartPlugin extends VchartChartPlugin {
   constructor() {
     super({
       buildQuery,

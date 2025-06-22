@@ -13,7 +13,6 @@ export default function VChartPie(props: PieChartTransformedProps) {
       
       // 创建 VChart 实例
       const chartInstance = new VChart(vchartSpec,{
-
         dom: containerRef.current
       });
       
