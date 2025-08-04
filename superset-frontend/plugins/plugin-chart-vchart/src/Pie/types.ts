@@ -96,7 +96,7 @@ export const DEFAULT_FORM_DATA= {
   donut: false,
   groupby: [],
   innerRadius: 30,
-  labelLine: false,
+  labelLine: true,
   numberFormat: 'SMART_NUMBER',
   outerRadius: 70,
   showLabels: true,

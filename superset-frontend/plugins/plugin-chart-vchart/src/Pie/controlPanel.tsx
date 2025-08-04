@@ -4,7 +4,7 @@ import {
   ControlSubSectionHeader,
   ControlPanelsContainerProps,
  } from '@superset-ui/chart-controls';
- import { DEFAULT_FORM_DATA } from './types';
+import { DEFAULT_FORM_DATA } from './types';
 
 const {
   donut,
