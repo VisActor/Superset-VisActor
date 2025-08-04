@@ -80,7 +80,13 @@ import { PivotTableChartPlugin as PivotTableChartPluginV2 } from '@superset-ui/p
 import { HandlebarsChartPlugin } from '@superset-ui/plugin-chart-handlebars';
 import { FilterPlugins } from 'src/constants';
 import TimeTableChartPlugin from '../TimeTable';
-import { VChartPieChartPlugin } from '@superset-ui/plugin-chart-vchart';
+import { 
+  VChartPieChartPlugin,
+  VChartColumnChartPlugin,
+  VChartBarChartPlugin,
+  VChartAreaChartPlugin,
+  VChartLineChartPlugin,
+} from '@superset-ui/plugin-chart-vchart';
 import { VTablePivotTablePlugin } from '@superset-ui/plugin-chart-vtable';
 
 export default class MainPreset extends Preset {
@@ -187,6 +193,10 @@ export default class MainPreset extends Preset {
           ],
         }).configure({ key: VizType.Cartodiagram }),
         new VChartPieChartPlugin().configure({ key: VizType.VPie }),
+        new VChartColumnChartPlugin().configure({ key: VizType.VColumn }),
+        new VChartBarChartPlugin().configure({ key: VizType.VBar }),
+        new VChartAreaChartPlugin().configure({ key: VizType.VArea }),
+        new VChartLineChartPlugin().configure({ key: VizType.VLine }),
         new VTablePivotTablePlugin().configure({ key: VizType.VPivotTable }),
         ...experimentalPlugins,
       ],

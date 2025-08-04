@@ -1,4 +1,4 @@
-import { ChartProps, DataRecord, getCategoricalSchemeRegistry } from '@superset-ui/core';
+import { ChartProps, DataRecord, getCategoricalSchemeRegistry, getMetricLabel, getColumnLabel } from '@superset-ui/core';
 import { PieChartTransformedProps } from './types';
 import { VizSeedBuilder } from 'yizseed';
 import { color } from 'd3-color';
@@ -16,10 +16,14 @@ export default function transformProps(chartProps: ChartProps): PieChartTransfor
   const colors = getCategoricalSchemeRegistry().get(colorScheme)?.colors
   const builder = new VizSeedBuilder(data);
 
+  // 正确提取 metric 和 groupby 字段名
+  const metricLabel = getMetricLabel(metric);
+  const groupbyLabels = groupby.map(getColumnLabel);
+
   const vizSeedDSL = builder
     .setChartType('pie')
-    .setDimensions(groupby)
-    .setMeasures([metric])
+    .setDimensions(groupbyLabels)
+    .setMeasures([metricLabel])
     .setStyle({
       label: {
         line: {
