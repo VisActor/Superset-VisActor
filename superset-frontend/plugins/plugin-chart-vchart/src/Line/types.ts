@@ -23,7 +23,7 @@ export const DEFAULT_FORM_DATA = {
   groupby: [],
   metrics: [],
   colorScheme: 'supersetColors',
-  showLabels: true,
+  showLabels: false,
   showLegend: true,
   smooth: false,
   showSymbol: true,

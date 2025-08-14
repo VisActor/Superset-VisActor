@@ -3,6 +3,9 @@ import buildQuery from './buildQuery';
 import controlPanel from './controlPanel';
 import transformProps from './transformProps';
 import { VchartChartPlugin } from '../types';
+import thumbnail from './images/thumbnail.png';
+import example1 from './images/Line1.png';
+import example2 from './images/Line2.png';
 
 export default class VChartLineChartPlugin extends VchartChartPlugin {
   constructor() {
@@ -20,6 +23,7 @@ export default class VChartLineChartPlugin extends VchartChartPlugin {
         credits: ['https://visactor.io/vchart'],
         description:
           t(`Line charts are perfect for showing trends and changes over time. They connect data points with lines and support smooth curves, customizable markers, and multiple series for comprehensive trend analysis.`),
+        exampleGallery: [{ url: example1 }, { url: example2 }],
         name: t('Line VChart'),
         tags: [
           t('Time-series'),
@@ -30,6 +34,7 @@ export default class VChartLineChartPlugin extends VchartChartPlugin {
           t('Connected'),
           t('VChart'),
         ],
+        thumbnail,
       },
       transformProps,
     });

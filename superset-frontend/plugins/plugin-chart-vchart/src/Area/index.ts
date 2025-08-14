@@ -3,6 +3,8 @@ import buildQuery from './buildQuery';
 import controlPanel from './controlPanel';
 import transformProps from './transformProps';
 import { VchartChartPlugin } from '../types';
+import thumbnail from './images/thumbnail.png';
+import example1 from './images/Area1.png';
 
 export default class VChartAreaChartPlugin extends VchartChartPlugin {
   constructor() {
@@ -20,6 +22,7 @@ export default class VChartAreaChartPlugin extends VchartChartPlugin {
         credits: ['https://visactor.io/vchart'],
         description:
           t(`Area charts show trends over time by filling the area between the line and axis. They're ideal for displaying cumulative values and support both stacked and percentage stacked modes for multiple series comparison.`),
+        exampleGallery: [{ url: example1 }],
         name: t('Area VChart'),
         tags: [
           t('Time-series'),
@@ -30,6 +33,7 @@ export default class VChartAreaChartPlugin extends VchartChartPlugin {
           t('Continuous'),
           t('VChart'),
         ],
+        thumbnail,
       },
       transformProps,
     });

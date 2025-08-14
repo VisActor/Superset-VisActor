@@ -41,7 +41,6 @@ export default function transformProps(chartProps: ChartProps): AreaChartTransfo
     .build();
   
   let vchartSpec = VizSeedBuilder.from(vizSeedDSL).buildSpec();
-  
   vchartSpec = {
     ...vchartSpec,
     color: colors
