@@ -86,6 +86,8 @@ import {
   VChartBarChartPlugin,
   VChartAreaChartPlugin,
   VChartLineChartPlugin,
+  VChartSankeyChartPlugin,
+  VChartTreemapChartPlugin,
 } from '@superset-ui/plugin-chart-vchart';
 import { VTablePivotTablePlugin, VTablePlugin, VTablePivotChartPlugin } from '@superset-ui/plugin-chart-vtable';
 
@@ -197,6 +199,8 @@ export default class MainPreset extends Preset {
         new VChartBarChartPlugin().configure({ key: VizType.VBar }),
         new VChartAreaChartPlugin().configure({ key: VizType.VArea }),
         new VChartLineChartPlugin().configure({ key: VizType.VLine }),
+        new VChartSankeyChartPlugin().configure({ key: VizType.VSankey }),
+        new VChartTreemapChartPlugin().configure({ key: VizType.VTreemap }),
         new VTablePivotTablePlugin().configure({ key: VizType.VPivotTable }),
         new VTablePlugin().configure({ key: VizType.VTable }),
         new VTablePivotChartPlugin().configure({ key: VizType.VPivotChart }),

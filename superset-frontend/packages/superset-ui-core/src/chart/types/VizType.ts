@@ -67,6 +67,8 @@ export enum VizType {
   VBar = 'visactor_bar',
   VArea = 'visactor_area',
   VLine = 'visactor_line',
+  VSankey = 'visactor_sankey',
+  VTreemap = 'visactor_treemap',
   VPivotTable = 'visactor_pivot_table',
   VTable = 'visactor_table',
   VPivotChart = 'visactor_pivot_chart',
