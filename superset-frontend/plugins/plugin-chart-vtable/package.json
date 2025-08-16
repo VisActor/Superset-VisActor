@@ -25,6 +25,9 @@
     "homepage": "https://github.com/VisActor/Superset-VisActor/tree/master/superset-frontend/plugins/plugin-chart-vtable#readme",
     "publishConfig": {
       "access": "public"
+    },  
+    "dependencies": {
+      "yizseed": "1.1.4"
     },
     "peerDependencies": {
       "@ant-design/icons": "^5.2.6",

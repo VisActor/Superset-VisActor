@@ -28,7 +28,7 @@
     "d3-array": "^1.2.0",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
-    "yizseed": "1.1.3"
+    "yizseed": "1.1.4"
   },
   "peerDependencies": {
     "@superset-ui/chart-controls": "*",

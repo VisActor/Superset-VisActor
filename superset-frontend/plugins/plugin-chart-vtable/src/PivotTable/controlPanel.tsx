@@ -16,189 +16,7 @@ import {
 } from '@superset-ui/core';
 import { MetricsLayoutEnum } from '../types';
 
-// const config: ControlPanelConfig = {
-//   controlPanelSections: [
-//     {
-//       label: t('Query'),
-//       expanded: true,
-//       controlSetRows: [
-//         [
-//           {
-//             name: 'groupbyColumns',
-//             config: {
-//               ...sharedControls.groupby,
-//               label: t('Columns'),
-//               description: t('Columns to group by on the columns'),
-//             },
-//           },
-//         ],
-//         [
-//           {
-//             name: 'groupbyRows',
-//             config: {
-//               ...sharedControls.groupby,
-//               label: t('Rows'),
-//               description: t('Columns to group by on the rows'),
-//             },
-//           },
-//         ],
-//         [
-//           {
-//             name: 'time_grain_sqla',
-//             config: {
-//               ...sharedControls.time_grain_sqla,
-//               visibility: ({ controls }) => {
-//                 const dttmLookup = Object.fromEntries(
-//                   ensureIsArray(controls?.groupbyColumns?.options).map(
-//                     option => [option.column_name, option.is_dttm],
-//                   ),
-//                 );
 
-//                 return [
-//                   ...ensureIsArray(controls?.groupbyColumns.value),
-//                   ...ensureIsArray(controls?.groupbyRows.value),
-//                 ]
-//                   .map(selection => {
-//                     if (isAdhocColumn(selection)) {
-//                       return true;
-//                     }
-//                     if (isPhysicalColumn(selection)) {
-//                       return !!dttmLookup[selection];
-//                     }
-//                     return false;
-//                   })
-//                   .some(Boolean);
-//               },
-//             },
-//           },
-//           'temporal_columns_lookup',
-//         ],
-//         [
-//           {
-//             name: 'metrics',
-//             config: {
-//               ...sharedControls.metrics,
-//               validators: [validateNonEmpty],
-//               rerender: ['conditional_formatting'],
-//             },
-//           },
-//         ],
-//         [
-//           {
-//             name: 'metricsLayout',
-//             config: {
-//               type: 'RadioButtonControl',
-//               renderTrigger: true,
-//               label: t('Apply metrics on'),
-//               default: MetricsLayoutEnum.COLUMNS,
-//               options: [
-//                 [MetricsLayoutEnum.COLUMNS, t('Columns')],
-//                 [MetricsLayoutEnum.ROWS, t('Rows')],
-//               ],
-//               description: t(
-//                 'Use metrics as a top level group for columns or for rows',
-//               ),
-//             },
-//           },
-//         ],
-//         ['adhoc_filters'],
-//         ['series_limit'],
-//         [
-//           {
-//             name: 'row_limit',
-//             config: {
-//               ...sharedControls.row_limit,
-//               label: t('Cell limit'),
-//               description: t('Limits the number of cells that get retrieved.'),
-//             },
-//           },
-//         ],
-//         // TODO(kgabryje): add series_columns control after control panel is redesigned to avoid clutter
-//         [
-//           {
-//             name: 'series_limit_metric',
-//             config: {
-//               ...sharedControls.series_limit_metric,
-//               description: t(
-//                 'Metric used to define how the top series are sorted if a series or cell limit is present. ' +
-//                 'If undefined reverts to the first metric (where appropriate).',
-//               ),
-//             },
-//           },
-//         ],
-//         [
-//           {
-//             name: 'order_desc',
-//             config: {
-//               type: 'CheckboxControl',
-//               label: t('Sort Descending'),
-//               default: true,
-//               description: t('Whether to sort descending or ascending'),
-//             },
-//           },
-//         ],
-//       ],
-//     },
-//     {
-//       label: t('Table Options'),
-//       expanded: true,
-//       controlSetRows: [
-//         [
-//           {
-//             name: 'aggregateFunction',
-//             config: {
-//               type: 'SelectControl',
-//               label: t('Aggregation Function'),
-//               default: 'Sum',
-//               choices: [
-//                 ['Sum', t('Sum')],
-//                 ['Average', t('Average')],
-//                 ['Count', t('Count')],
-//                 ['Min', t('Min')],
-//                 ['Max', t('Max')],
-//               ],
-//               renderTrigger: true,
-//               description: t('Aggregate function to apply to values'),
-//             },
-//           },
-//         ],
-//         [
-//           {
-//             name: 'colOrder',
-//             config: {
-//               type: 'SelectControl',
-//               label: t('Column Order'),
-//               default: 'key_a_to_z',
-//               choices: [
-//                 ['key_a_to_z', t('Alphabetical')],
-//                 ['key_z_to_a', t('Reverse Alphabetical')],
-//               ],
-//               renderTrigger: true,
-//               description: t('Column ordering'),
-//             },
-//           },
-//         ],
-//         [
-//           {
-//             name: 'rowOrder',
-//             config: {
-//               type: 'SelectControl',
-//               label: t('Row Order'),
-//               default: 'key_a_to_z',
-//               choices: [
-//                 ['key_a_to_z', t('Alphabetical')],
-//                 ['key_z_to_a', t('Reverse Alphabetical')],
-//               ],
-//               renderTrigger: true,
-//               description: t('Row ordering'),
-//             },
-//           },
-//         ],
-//         // 其他控制项...
-//       ],
-//     },
-//   ],
-// };
 const config: ControlPanelConfig = {
   controlPanelSections: [
     {
@@ -285,7 +103,7 @@ const config: ControlPanelConfig = {
           },
         ],
         ['adhoc_filters'],
-        ['series_limit'],
+        // ['series_limit'],
         [
           {
             name: 'row_limit',
@@ -327,44 +145,44 @@ const config: ControlPanelConfig = {
       expanded: true,
       tabOverride: 'data',
       controlSetRows: [
-        [
-          {
-            name: 'aggregateFunction',
-            config: {
-              type: 'SelectControl',
-              label: t('Aggregation function'),
-              clearable: false,
-              choices: [
-                ['Count', t('Count')],
-                ['Count Unique Values', t('Count Unique Values')],
-                ['List Unique Values', t('List Unique Values')],
-                ['Sum', t('Sum')],
-                ['Average', t('Average')],
-                ['Median', t('Median')],
-                ['Sample Variance', t('Sample Variance')],
-                ['Sample Standard Deviation', t('Sample Standard Deviation')],
-                ['Minimum', t('Minimum')],
-                ['Maximum', t('Maximum')],
-                ['First', t('First')],
-                ['Last', t('Last')],
-                ['Sum as Fraction of Total', t('Sum as Fraction of Total')],
-                ['Sum as Fraction of Rows', t('Sum as Fraction of Rows')],
-                ['Sum as Fraction of Columns', t('Sum as Fraction of Columns')],
-                ['Count as Fraction of Total', t('Count as Fraction of Total')],
-                ['Count as Fraction of Rows', t('Count as Fraction of Rows')],
-                [
-                  'Count as Fraction of Columns',
-                  t('Count as Fraction of Columns'),
-                ],
-              ],
-              default: 'Sum',
-              description: t(
-                'Aggregate function to apply when pivoting and computing the total rows and columns',
-              ),
-              renderTrigger: true,
-            },
-          },
-        ],
+        // [
+        //   {
+        //     name: 'aggregateFunction',
+        //     config: {
+        //       type: 'SelectControl',
+        //       label: t('Aggregation function'),
+        //       clearable: false,
+        //       choices: [
+        //         ['Count', t('Count')],
+        //         ['Count Unique Values', t('Count Unique Values')],
+        //         ['List Unique Values', t('List Unique Values')],
+        //         ['Sum', t('Sum')],
+        //         ['Average', t('Average')],
+        //         ['Median', t('Median')],
+        //         ['Sample Variance', t('Sample Variance')],
+        //         ['Sample Standard Deviation', t('Sample Standard Deviation')],
+        //         ['Minimum', t('Minimum')],
+        //         ['Maximum', t('Maximum')],
+        //         ['First', t('First')],
+        //         ['Last', t('Last')],
+        //         ['Sum as Fraction of Total', t('Sum as Fraction of Total')],
+        //         ['Sum as Fraction of Rows', t('Sum as Fraction of Rows')],
+        //         ['Sum as Fraction of Columns', t('Sum as Fraction of Columns')],
+        //         ['Count as Fraction of Total', t('Count as Fraction of Total')],
+        //         ['Count as Fraction of Rows', t('Count as Fraction of Rows')],
+        //         [
+        //           'Count as Fraction of Columns',
+        //           t('Count as Fraction of Columns'),
+        //         ],
+        //       ],
+        //       default: 'Sum',
+        //       description: t(
+        //         'Aggregate function to apply when pivoting and computing the total rows and columns',
+        //       ),
+        //       renderTrigger: true,
+        //     },
+        //   },
+        // ],
         [
           {
             name: 'rowTotals',
@@ -413,33 +231,33 @@ const config: ControlPanelConfig = {
             },
           },
         ],
-        [
-          {
-            name: 'transposePivot',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Transpose pivot'),
-              default: false,
-              description: t('Swap rows and columns'),
-              renderTrigger: true,
-            },
-          },
-        ],
-        [
-          {
-            name: 'combineMetric',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Combine metrics'),
-              default: false,
-              description: t(
-                'Display metrics side by side within each column, as ' +
-                  'opposed to each column being displayed side by side for each metric.',
-              ),
-              renderTrigger: true,
-            },
-          },
-        ],
+        // [
+        //   {
+        //     name: 'transposePivot',
+        //     config: {
+        //       type: 'CheckboxControl',
+        //       label: t('Transpose pivot'),
+        //       default: false,
+        //       description: t('Swap rows and columns'),
+        //       renderTrigger: true,
+        //     },
+        //   },
+        // ],
+        // [
+        //   {
+        //     name: 'combineMetric',
+        //     config: {
+        //       type: 'CheckboxControl',
+        //       label: t('Combine metrics'),
+        //       default: false,
+        //       description: t(
+        //         'Display metrics side by side within each column, as ' +
+        //           'opposed to each column being displayed side by side for each metric.',
+        //       ),
+        //       renderTrigger: true,
+        //     },
+        //   },
+        // ],
       ],
     },
     {

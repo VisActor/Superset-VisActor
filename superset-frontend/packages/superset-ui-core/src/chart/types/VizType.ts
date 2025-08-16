@@ -68,4 +68,5 @@ export enum VizType {
   VArea = 'visactor_area',
   VLine = 'visactor_line',
   VPivotTable = 'visactor_pivot_table',
+  VTable = 'visactor_table',
 }
