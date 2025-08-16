@@ -5,7 +5,6 @@ import controlPanel from './controlPanel';
 import buildQuery from './buildQuery';
 import { VTableFormData, VTableProps } from './types';
 
-export { default as __hack__ } from './types';
 export * from './types';
 
 const metadata = new ChartMetadata({
@@ -19,7 +18,7 @@ const metadata = new ChartMetadata({
   description: t(
     'High-performance table view powered by VTable. Supports large datasets with virtual scrolling.',
   ),
-  name: t('VTable'),
+  name: t('Table VTable'),
   tags: [
     t('Business'),
     t('Featured'),

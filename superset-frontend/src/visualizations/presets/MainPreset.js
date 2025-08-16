@@ -87,7 +87,7 @@ import {
   VChartAreaChartPlugin,
   VChartLineChartPlugin,
 } from '@superset-ui/plugin-chart-vchart';
-import { VTablePivotTablePlugin, VTablePlugin } from '@superset-ui/plugin-chart-vtable';
+import { VTablePivotTablePlugin, VTablePlugin, VTablePivotChartPlugin } from '@superset-ui/plugin-chart-vtable';
 
 export default class MainPreset extends Preset {
   constructor() {
@@ -199,6 +199,7 @@ export default class MainPreset extends Preset {
         new VChartLineChartPlugin().configure({ key: VizType.VLine }),
         new VTablePivotTablePlugin().configure({ key: VizType.VPivotTable }),
         new VTablePlugin().configure({ key: VizType.VTable }),
+        new VTablePivotChartPlugin().configure({ key: VizType.VPivotChart }),
         ...experimentalPlugins,
       ],
     });

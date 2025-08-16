@@ -1,13 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { styled } from '@superset-ui/core';
 import { ListTable } from '@visactor/vtable';
 import { VTableTransformedProps } from './types';
 
-const Styles = styled.div`
-  height: ${({ height }) => height}px;
-  width: ${({ width }) => width}px;
-  overflow: hidden;
-`;
+
 
 export default function VTableComponent({
   width,
