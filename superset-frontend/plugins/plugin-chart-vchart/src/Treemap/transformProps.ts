@@ -82,9 +82,7 @@ export default function transformProps(chartProps: ChartProps<TreemapChartFormDa
 
   // 构建树形数据
   const hierarchyData = buildHierarchy(data, groupbyLabels);
-  console.log('data', data);
-  console.log('hierarchyData', hierarchyData);
-  // 如果只有一层数据，包装到根节点中
+
 
   // 构建 VChart Treemap 配置（基于官方样例）
   const vchartSpec = {
