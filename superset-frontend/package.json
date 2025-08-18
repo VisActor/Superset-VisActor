@@ -112,6 +112,8 @@
     "@superset-ui/plugin-chart-pivot-table": "file:./plugins/plugin-chart-pivot-table",
     "@superset-ui/plugin-chart-table": "file:./plugins/plugin-chart-table",
     "@superset-ui/plugin-chart-word-cloud": "file:./plugins/plugin-chart-word-cloud",
+    "@superset-ui/plugin-chart-vchart": "file:./plugins/plugin-chart-vchart",
+    "@superset-ui/plugin-chart-vtable": "file:./plugins/plugin-chart-vtable",
     "@superset-ui/switchboard": "file:./packages/superset-ui-switchboard",
     "@types/d3-format": "^3.0.1",
     "@types/d3-time-format": "^4.0.3",
@@ -214,6 +216,8 @@
     "use-event-callback": "^0.1.0",
     "use-immer": "^0.9.0",
     "use-query-params": "^1.1.9",
+    "@visactor/vchart": "^2.0.0",
+    "@visactor/vtable": "^1.19.0",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
