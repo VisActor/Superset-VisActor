@@ -1,0 +1,98 @@
+{
+  "name": "yizseed",
+  "version": "1.1.4",
+  "description": "VizSeed DSL - 数据可视化维度重塑与图表生成工具，支持VChart、VTable等多个图表库的统一抽象",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "watch": "tsc --watch",
+    "start": "node dist/index.js",
+    "example": "ts-node examples/line.ts",
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build && npm run lint:check",
+    "postpack": "echo 'VizSeed核心库打包完成'",
+    "lint:check": "echo 'Running lint checks...'",
+    "web:dev": "vite",
+    "web:build": "vite build",
+    "web:preview": "vite preview",
+    "server:dev": "npm run build && node server/simple-server.js",
+    "server:ts": "ts-node --project server/tsconfig.json server/websocket-server.ts",
+    "dev:full": "concurrently \"npm run server:dev\" \"npm run web:dev\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "data-visualization",
+    "charts",
+    "vchart",
+    "vtable",
+    "dsl",
+    "typescript",
+    "dimension-reshaping",
+    "pipeline",
+    "data-transformation"
+  ],
+  "author": {
+    "name": "dionysianspirit",
+    "email": "xxyyffyeah@outlook.com"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/xxyyffyeah/VizSeed#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xxyyffyeah/VizSeed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xxyyffyeah/VizSeed/issues"
+  },
+  "dependencies": {
+    "radash": "^12.1.1",
+    "zod": "^3.25.75"
+  },
+  "peerDependencies": {
+    "@visactor/vchart": "^2.0.0",
+    "@visactor/vtable": "^1.19.1"
+  },
+  "peerDependenciesMeta": {
+    "@visactor/vchart": {
+      "optional": true
+    },
+    "@visactor/vtable": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.7",
+    "@visactor/vchart": "^2.0.0",
+    "@visactor/vtable": "^1.19.1",
+    "typescript": "^5.8.3",
+    "ts-node": "^10.9.2"
+  },
+  "optionalDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/ws": "^8.18.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@monaco-editor/react": "^4.7.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^9.2.0",
+    "express": "^5.1.0",
+    "monaco-editor": "^0.52.2",
+    "nodemon": "^3.1.10",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "vite": "^6.3.5",
+    "ws": "^8.18.3"
+  }
+}
