@@ -1,0 +1,29 @@
+"use strict";
+/**
+ * BAR图表规范生成Pipeline
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createBarGroupedSpecPipeline = void 0;
+const PipelineCore_1 = require("../../PipelineCore");
+const DataModule_1 = require("../DataModule");
+const Legend_1 = require("../style/Legend");
+const Label_1 = require("../style/Label");
+const Tooltip_1 = require("../style/Tooltip");
+const Axes_1 = require("../style/Axes");
+const initVChartBar_1 = require("../init/initVChartBar");
+const grouped_1 = require("../aggregation/grouped");
+const Color_1 = require("../style/Color");
+// 创建BAR图表Pipeline
+const createBarGroupedSpecPipeline = () => (0, PipelineCore_1.pipeline)([
+    initVChartBar_1.initVChartBar,
+    DataModule_1.initData,
+    grouped_1.barGrouped,
+    Axes_1.xLinearAxis,
+    Axes_1.yBandAxis,
+    Color_1.configureColor,
+    Legend_1.configureLegend,
+    Label_1.configureLabel,
+    Tooltip_1.configureTooltip
+], {});
+exports.createBarGroupedSpecPipeline = createBarGroupedSpecPipeline;
+//# sourceMappingURL=Bar_grouped.js.map
