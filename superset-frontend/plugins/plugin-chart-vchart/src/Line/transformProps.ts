@@ -1,6 +1,9 @@
 import { ChartProps, DataRecord, getCategoricalSchemeRegistry, ensureIsArray, getMetricLabel, getColumnLabel } from '@superset-ui/core';
 import { LineChartTransformedProps } from './types';
-import { VizSeedBuilder } from 'yizseed';
+import { Builder, registerAll } from '@visactor/vseed';
+
+// Register all chart types and themes (idempotent, safe to call multiple times)
+registerAll();
 
 export default function transformProps(chartProps: ChartProps): LineChartTransformedProps {
   const {
@@ -10,11 +13,11 @@ export default function transformProps(chartProps: ChartProps): LineChartTransfo
     width,
   } = chartProps;
 
-  const { 
-    groupby, 
-    metrics, 
-    colorScheme, 
-    showLabels = true, 
+  const {
+    groupby,
+    metrics,
+    colorScheme,
+    showLabels = true,
     showLegend = true,
     smooth = false,
     showSymbol = true,
@@ -23,29 +26,24 @@ export default function transformProps(chartProps: ChartProps): LineChartTransfo
 
   const data = queriesData[0].data as DataRecord[];
   const colors = getCategoricalSchemeRegistry().get(colorScheme)?.colors;
-  const builder = new VizSeedBuilder(data);
 
   const metricLabels = ensureIsArray(metrics).map(getMetricLabel);
   const groupbyLabels = groupby.map(getColumnLabel);
 
-  
-  const vizSeedDSL = builder
-    .setChartType('line')
-    .setDimensions(groupbyLabels)
-    .setMeasures(metricLabels)
-    .setStyle({
-      label: {
-        visible: showLabels,
-      }
-    })
-    .setLegend(showLegend)
-    .build();
-
-  let vchartSpec = VizSeedBuilder.from(vizSeedDSL).buildSpec();
-  vchartSpec = {
-    ...vchartSpec,
-    color: colors
+  const vseed: any = {
+    chartType: 'line',
+    dataset: data,
+    dimensions: groupbyLabels.map((label: string) => ({ id: label })),
+    measures: metricLabels.map((label: string) => ({ id: label })),
+    label: {
+      visible: showLabels,
+    },
+    legend: showLegend ? { visible: true } : { visible: false },
   };
+
+  const builder = new Builder(vseed);
+  const vchartSpec = builder.build();
+
   return {
     width,
     height,
