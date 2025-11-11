@@ -1,7 +1,9 @@
 import { ChartProps, DataRecord, getCategoricalSchemeRegistry, getMetricLabel, getColumnLabel } from '@superset-ui/core';
 import { PieChartTransformedProps } from './types';
-import { VizSeedBuilder } from 'yizseed';
-import { color } from 'd3-color';
+import { Builder, registerAll } from '@visactor/vseed';
+
+// Register all chart types and themes (idempotent, safe to call multiple times)
+registerAll();
 
 export default function transformProps(chartProps: ChartProps): PieChartTransformedProps {
   const {
@@ -13,35 +15,26 @@ export default function transformProps(chartProps: ChartProps): PieChartTransfor
   const { groupby, metric, colorScheme, showLabels = true, showLegend = true, outerRadius, innerRadius, donut, labelLine } = formData;
   const data = queriesData[0].data as DataRecord[];
 
-  const colors = getCategoricalSchemeRegistry().get(colorScheme)?.colors
-  const builder = new VizSeedBuilder(data);
+  const colors = getCategoricalSchemeRegistry().get(colorScheme)?.colors;
 
-  // 正确提取 metric 和 groupby 字段名
   const metricLabel = getMetricLabel(metric);
   const groupbyLabels = groupby.map(getColumnLabel);
 
-  const vizSeedDSL = builder
-    .setChartType('pie')
-    .setDimensions(groupbyLabels)
-    .setMeasures([metricLabel])
-    .setStyle({
-      label: {
-        line: {
-          visible: labelLine,
-        },
-        visible: showLabels,
-        position: 'outside',
-      },
-      color: colors,
-      pie: {
-        outerRadius: outerRadius / 100,
-        innerRadius: donut ? innerRadius / 100 : 0,
-        // animationAppear: false
-      }
-    })
-    .setLegend(showLegend)
-    .build(); 
-  const vchartSpec = VizSeedBuilder.from(vizSeedDSL).buildSpec();
+  const chartType = donut ? 'donut' : 'pie';
+  const vseed: any = {
+    chartType: chartType,
+    dataset: data,
+    dimensions: groupbyLabels.map((label: string) => ({ id: label })),
+    measures: [{ id: metricLabel }],
+    label: {
+      visible: showLabels,
+      position: 'outside',
+    },
+    legend: showLegend ? { visible: true } : { visible: false },
+  };
+
+  const builder = new Builder(vseed);
+  const vchartSpec = builder.build();
 
 
 
